@@ -1,31 +1,25 @@
 import React from 'react';
+import { TodoContext } from '../TodoContext';
 import { TodoCounter } from '../ToDoCounter';
-import { TodoSearch} from '../ToDoSearch';
+import { TodoSearch } from '../ToDoSearch';
 import { TodoList } from '../TodoList';
-import { TodoItem } from '../TodoItem'
-import { CreateTodoButton } from '../CreateTodoButton' ;
+import { TodoItem } from '../TodoItem';
+import { CreateTodoButton } from '../CreateTodoButton';
 
-function AppUI({
-    totalTodos,
-    completedTodos,
-    searchValue,
-    setSearchValue,
+function AppUI() {
+  // Desesctructuramos los valores de nuestro contexto
+  const {
     searchedTodos,
     completeTodo,
-    deleteTodo,
-  }) {
-    return (
-        <React.Fragment>
-        <TodoCounter
-          total={totalTodos}
-          completed={completedTodos}
-        />
-        <TodoSearch
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
-        />
-  
-        <TodoList>
+    deleteTodo
+  } = React.useContext(TodoContext);
+
+  return (
+    <React.Fragment>
+      <TodoCounter />
+      <TodoSearch />
+      {/* Podemos acceder a nuestro contexto con el consumer */}
+        <TodoList>            
           {searchedTodos.map(todo => (
             <TodoItem
               key={todo.text}
@@ -36,10 +30,9 @@ function AppUI({
             />
           ))}
         </TodoList>
-  
-        <CreateTodoButton />
-      </React.Fragment>
-    );
+      <CreateTodoButton />
+    </React.Fragment>
+  );
 }
 
-export { AppUI }
+export { AppUI };
