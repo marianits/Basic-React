@@ -5,15 +5,17 @@ import { TodoSearch } from '../ToDoSearch';
 import { TodoList } from '../TodoList';
 import { TodoItem } from '../TodoItem';
 import { CreateTodoButton } from '../CreateTodoButton';
+import { Modal } from '../modal';
 
 function AppUI() {
   // Desesctructuramos los valores de nuestro contexto
   const {
     searchedTodos,
     completeTodo,
-    deleteTodo
+    deleteTodo,
+    openModal,
+    setOpenModal
   } = React.useContext(TodoContext);
-
   return (
     <React.Fragment>
       <TodoCounter />
@@ -30,7 +32,16 @@ function AppUI() {
             />
           ))}
         </TodoList>
-      <CreateTodoButton />
+
+        {!!openModal && (
+          <Modal>
+            <p>{searchedTodos[0]?.text}</p>
+          </Modal>
+        )}
+
+      <CreateTodoButton
+        setOpenModal={setOpenModal}
+      />
     </React.Fragment>
   );
 }
